@@ -28,7 +28,6 @@ export class GuideViewComponent implements OnInit {
 
   onHashtag($event) {
     this.hashtags = $event;
-    console.log(this.hashtags);
   }
 
   getAllGuides(showAllGuides) {

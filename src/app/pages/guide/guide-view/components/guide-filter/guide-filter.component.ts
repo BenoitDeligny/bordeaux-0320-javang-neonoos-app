@@ -99,9 +99,10 @@ export class GuideFilterComponent implements OnInit {
     } else {
       this.showTitleHashtags = 'Tout voir';
       this.hashtags = null;
-      this.arrayHashtags.length = 0;
+      this.arrayHashtags = [];
       this.searchValue = '';
       this.message = '';
+      this.checkboxEvent.emit(this.arrayHashtags);
     }
   }
 

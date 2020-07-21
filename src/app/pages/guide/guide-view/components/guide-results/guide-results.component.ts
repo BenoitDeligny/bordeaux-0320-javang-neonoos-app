@@ -27,59 +27,27 @@ hashtagId: number; */
 
 _hashtags: Data<Hashtag>[] = [];
 guides: RootObjectList<Guide>;
-hashtagsSection = [];
-guideSections: RootObjectList<Guide>[] = [];
+hashtagsSections = [];
 
 
-   @Input()
-  set hashtags(hashtags: []) {
-
-    if (hashtags.length > 0) {
-
-      this.forkGuide(hashtags).subscribe((results: RootObjectList<Guide>[]) => {
-        this.guideSections = results;
-        this._hashtags = hashtags;
-        console.log(this._hashtags);
-      });
-
-
-/*       for (let i = 0; hashtags.length > i; i++) {
-        this.guideService.getGuidesByHashtag(hashtags[i]).subscribe((guides) => {
-          this.guides = guides;
-          console.log(this.guides);
-        });
-      } */
-    }
-
-/*     if (hashtags.length > 0) {
-
-
-      this.forkGuide(hashtags).subscribe((results: RootObjectList<Guide>[]) => {
-        this.guideSections = results;
-        this._hashtags = hashtags;
-        console.log(this._hashtags);
-      });
-    } */
-  }
-
-  //@Input() hashtags = [];
-  @Input() allGuides: RootObjectList<Guide>;
-
-  constructor(private guideService: GuideService) { }
-
-  ngOnInit(): void { }
-
-
-
-  forkGuide(hashtags: []){
-
-    // const getGuides$ = hashtags.map((h) => this.hashtagService.getGuidesByHashtag(h['id']));
-
+@Input() allGuides: RootObjectList<Guide>;
+@Input() set hashtags(hashtags: []) {
+  this.hashtagsSections = [];
+  if (hashtags.length > 0) {
     for (let i = 0; hashtags.length > i; i++) {
-      const getGuides$ = hashtags.map((h) => this.guideService.getGuidesByHashtag(hashtags[i]));
-      return forkJoin(getGuides$);
+      this.guideService.getGuidesByHashtag(hashtags[i]).subscribe((guides) => {
+        const objHashtag = new Object();
+        objHashtag['name'] = hashtags[i];
+        objHashtag['guides'] = guides;
+        this.hashtagsSections.push(objHashtag);
+      });
     }
   }
+}
+
+constructor(private guideService: GuideService) { }
+
+ngOnInit(): void { }
 
   /* updateHashtagName(id: number, name: string) {
 

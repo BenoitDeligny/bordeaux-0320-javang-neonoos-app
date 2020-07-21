@@ -44,6 +44,10 @@ export class GuideService {
     return this.http.get<RootObjectList<Guide>>(`${environment.APIURI}guides?filter[search]=%23${data}`);
   }
 
+  getHashtagsByGuide(id: number): Observable<RootObjectList<Hashtag>> {
+    return this.http.get<RootObjectList<Hashtag>>(`${environment.APIURI}guides/${id}/hashtags`);
+  }
+
   patchPlacesByGuide(id: number, place: RootObjectList<Place>): Observable<RootObjectList<Place>> {
     return this.http.patch<RootObjectList<Place>>(`${environment.APIURI}guides/${id}/relationships/places`, place);
   }
