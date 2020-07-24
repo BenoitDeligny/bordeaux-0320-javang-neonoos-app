@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Hashtag } from 'src/app/shared/models/hashtag';
 import { GuideService } from '../services/guide/guide.service';
 import { Guide } from '../models/guide';
 import { RootObjectList } from 'src/app/shared/models/root-object-list.model';
@@ -13,8 +12,9 @@ import { RootObjectList } from 'src/app/shared/models/root-object-list.model';
 export class GuideViewComponent implements OnInit {
 
   hashtags = [];
-  allGuides?: RootObjectList<Guide>;
-  guides: RootObjectList<Guide>;
+  // allGuides?: RootObjectList<Guide>;
+  guides: RootObjectList<Guide> = new RootObjectList<Guide>(Guide, 'guide');
+  showAllGuides: boolean;
 
   constructor(private guidesService: GuideService) { }
 
@@ -32,9 +32,9 @@ export class GuideViewComponent implements OnInit {
 
   getAllGuides(showAllGuides) {
     if (showAllGuides === true) {
-      this.allGuides = this.guides;
+      this.showAllGuides = true;
     } else {
-      this.allGuides = null;
+      this.showAllGuides = false;
     }
   }
 }

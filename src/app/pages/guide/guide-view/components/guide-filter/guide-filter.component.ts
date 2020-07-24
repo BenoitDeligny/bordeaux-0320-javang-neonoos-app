@@ -1,8 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { HashtagService } from '../../../services/hashtag/hashtag.service';
 import { Hashtag } from 'src/app/shared/models/hashtag';
 import { RootObjectList } from 'src/app/shared/models/root-object-list.model';
-import { MatDialog } from '@angular/material/dialog';
 import { Guide } from '../../../models/guide';
 import { GuideService } from '../../../services/guide/guide.service';
 
@@ -18,36 +16,21 @@ export class GuideFilterComponent implements OnInit {
 
   @Output() checkboxEvent = new EventEmitter();
   @Output() GuidesEventEmitter = new EventEmitter<any>();
+  @Input() guides: RootObjectList<Guide>;
 
   constructor( private guidesService: GuideService ) { }
 
-  // hashtags: RootObjectList<Hashtag>;
-  // hashtagsSearch: RootObjectList<Hashtag>;
-
   searchValue: string;
   _searchValue: string;
-
-  arrayHashtags = [];
-  message: string;
   showTitleHashtags = 'Tout voir';
   showAllGuides = false;
+  message: string;
   iconBtnGuides = 'add';
-
-  // == Connexion backClient ==
-
-    @Input() guides: RootObjectList<Guide>;
-
-    tmphashtags = [];
-    hashtags = [];
-
-
-
-
-  // ==========================
+  hashtags = [];
+  tmphashtags = [];
+  arrayHashtags = [];
 
   ngOnInit(): void { }
-
-  // === Methode backClient ===
 
   getArrayHashtags(guides: RootObjectList<Guide>) {
     for (let i = 0; guides.data.length > i; i++) {
@@ -66,9 +49,6 @@ export class GuideFilterComponent implements OnInit {
       }
     }
   }
-
-
-  // ==========================
 
   onSearchChange(searchValue: string): void {
     // searchValue = searchValue.toLowerCase();
@@ -122,13 +102,6 @@ export class GuideFilterComponent implements OnInit {
     // Send CheckboxEvent
     this.checkboxEvent.emit(this.arrayHashtags);
   }
-
-/*   openDialog() {
-    const dialogConfig = new MatDialogConfig();
-    this.matDialog.open(DialogBodyComponent, dialogConfig);
-    }
-    */
-
 
   searchAllGuides() {
      if (this.showAllGuides === false) {

@@ -17,13 +17,13 @@
   </mat-card>
 </div>
 
-<div class="guide-result">
-  <mat-card class="block" *ngIf="allGuides">
+<div class="guide-result" *ngIf="guides">
+  <mat-card class="block" >
   <div class="resultHeader">
   <h2 class="title-card-section">TOUS LES GUIDES</h2>
   </div>
   <div  class="resultImg" >
-    <div *ngFor="let guide of allGuides.data">
+    <div *ngFor="let guide of guides.data">
       <div class="overlay-image">
         <a [routerLink]="['/guide/edit/', guide.id]">
           <img class="image" mat-card-image src="https://picsum.photos/150">
@@ -32,6 +32,18 @@
         </div>
       </div>
   </div>
+
+<!--   <div class="pagination">
+    <a (click)="clickPagination(allGuides.links?.prev)">&laquo;</a>
+    <a (click)="clickPagination(allGuides.links?.first)">1</a>
+    <a href="#" class="active">2</a>
+    <a href="#">3</a>
+    <a href="#">4</a>
+    <a href="#">5</a>
+    <a href="#">6</a>
+    <a (click)="clickPagination(allGuides.links?.next)">&raquo;</a>
+  </div> -->
+
 </mat-card>
 </div>
 

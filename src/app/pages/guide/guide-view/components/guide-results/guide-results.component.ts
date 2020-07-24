@@ -26,16 +26,17 @@ titleHashtag = 'Edite';
 hashtagId: number; */
 
 _hashtags: Data<Hashtag>[] = [];
-guides: RootObjectList<Guide>;
+_showAllGuides: boolean;
+
 hashtagsSections = [];
 
 
-@Input() allGuides: RootObjectList<Guide>;
+guides: RootObjectList<Guide>;
 @Input() set hashtags(hashtags: []) {
   this.hashtagsSections = [];
   if (hashtags.length > 0) {
     for (let i = 0; hashtags.length > i; i++) {
-      this.guideService.getGuidesByHashtag(hashtags[i]).subscribe((guides) => {
+      this.guidesService.getGuidesByHashtag(hashtags[i]).subscribe((guides) => {
         const objHashtag = new Object();
         objHashtag['name'] = hashtags[i];
         objHashtag['guides'] = guides;
@@ -44,10 +45,24 @@ hashtagsSections = [];
     }
   }
 }
+@Input() set showAllGuides(showAllGuides: boolean) {
+  if (showAllGuides === true) {
+    const uri = "/api/guides?page[size]=20&page[number]=1";
+    this.guidesService.getGuidesPaginator(uri).subscribe((guides) => {
+      this.guides = guides;
+    });
+  } else {
+    this.guides = null;
+  }
+}
 
-constructor(private guideService: GuideService) { }
+constructor(private guidesService: GuideService) { }
 
 ngOnInit(): void { }
+
+clickPagination($event) {
+
+}
 
   /* updateHashtagName(id: number, name: string) {
 
