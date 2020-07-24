@@ -4,6 +4,7 @@ import { Place } from 'src/app/shared/models/place.model';
 import { RootObjectList } from 'src/app/shared/models/root-object-list.model';
 import { Country } from 'src/app/shared/models/country';
 import { MatSelectChange } from '@angular/material/select';
+import { PlaceData } from 'src/app/shared/models/place-data.model';
 
 @Component({
   selector: 'neo-place-edit',
@@ -15,7 +16,8 @@ export class PlaceEditComponent implements OnInit {
   @Input() place?: RootObject<Place>;
   @Input() placeId: number;
   @Input() countries: RootObjectList<Country>;
-  @Input() country: RootObjectList<Country>;
+  @Input() country: RootObject<Country>;
+  @Input() placeData: RootObject<PlaceData>;
 
   countryToPatch: RootObject<Country>;
 
@@ -34,7 +36,9 @@ export class PlaceEditComponent implements OnInit {
   }
 
   save() {
-    this.patchPlace.emit({ place: this.place, countryId: this.country.data[0].id});
+    console.log(this.country.data);
+
+    this.patchPlace.emit({ place: this.place, countryId: this.country.data.id});
   }
 
 }

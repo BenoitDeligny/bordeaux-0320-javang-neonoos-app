@@ -1,8 +1,10 @@
 export class User {
-  name: string;
-  email: string;
-  surname: string;
-  created: Date;
-  password: string;
-  role: string;
+
+    access_token: string;
+    account_id: number;
+    account_role: string;
+    expires_in: number;
+    is_new: boolean;
+    refresh_token: string;
 }
+

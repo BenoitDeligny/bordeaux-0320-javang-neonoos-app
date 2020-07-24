@@ -37,7 +37,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Country</mat-label>
        <mat-select [compareWith]="compareObjects"
-                   [(ngModel)]="country.data[0]">
+                   [(ngModel)]="country.data">
         <mat-option *ngFor="let country of countries.data" [value]="country">
           {{country.attributes.name}}
         </mat-option>
@@ -72,18 +72,18 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Date of Creation</mat-label>
-        <input matInput [(ngModel)]="place.data.attributes.created">
+        <input matInput [(ngModel)]="placeData.data.attributes.created">
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Last updated</mat-label>
-        <input matInput [(ngModel)]="place.data.attributes.updated">
+        <input matInput [(ngModel)]="placeData.data.attributes.updated">
       </mat-form-field>
     </div>
     <h3>wikipedia</h3>
     <div>
       <mat-form-field appearance="outline">
         <mat-label>Wiki Code</mat-label>
-        <input matInput>
+        <input [(ngModel)]="placeData.data.attributes.wikidata" matInput>
       </mat-form-field>
       <mat-form-field appearance="outline" class="larger">
         <mat-label>Lien Wikipédia</mat-label>
