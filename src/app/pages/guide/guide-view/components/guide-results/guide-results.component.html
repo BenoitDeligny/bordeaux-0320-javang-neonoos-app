@@ -33,16 +33,17 @@
       </div>
   </div>
 
-<!--   <div class="pagination">
-    <a (click)="clickPagination(allGuides.links?.prev)">&laquo;</a>
-    <a (click)="clickPagination(allGuides.links?.first)">1</a>
-    <a href="#" class="active">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <a href="#">5</a>
-    <a href="#">6</a>
-    <a (click)="clickPagination(allGuides.links?.next)">&raquo;</a>
-  </div> -->
+  <div class="block-pagination">
+    <div class="pagination">
+      <a (click)="clickPagination(paginationFirst)">Première page</a>
+      <a (click)="clickPagination(paginationPrev)">&laquo;</a>
+      <a *ngIf="(paginationCurrentPage != (paginationFirst +1))" (click)="clickPagination(paginationPrev)">{{paginationPrev}}</a>
+      <a class="active">{{paginationCurrentPage}}</a>
+      <a *ngIf="(paginationCurrentPage != (paginationLast -1))" (click)="clickPagination(paginationNext)">{{paginationNext}}</a>
+      <a (click)="clickPagination(paginationNext)">&raquo;</a>
+      <a (click)="clickPagination(paginationLast)">Dernière page</a>
+    </div>
+  </div>
 
 </mat-card>
 </div>

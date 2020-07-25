@@ -27,6 +27,14 @@ hashtagId: number; */
 
 _hashtags: Data<Hashtag>[] = [];
 _showAllGuides: boolean;
+paginationNbrPages = 20;
+paginationPages = 10;
+paginationCurrentPage: number;
+paginationFirst = 1;
+paginationLast: number;
+paginationNext: number;
+paginationPrev: number;
+
 
 hashtagsSections = [];
 
@@ -47,10 +55,8 @@ guides: RootObjectList<Guide>;
 }
 @Input() set showAllGuides(showAllGuides: boolean) {
   if (showAllGuides === true) {
-    const uri = "/api/guides?page[size]=20&page[number]=1";
-    this.guidesService.getGuidesPaginator(uri).subscribe((guides) => {
-      this.guides = guides;
-    });
+    const uri = '/api/guides?page[size]=' + this.paginationNbrPages + '&page[number]=' + this.paginationPages;
+    this.guidePagination(uri);
   } else {
     this.guides = null;
   }
@@ -60,7 +66,24 @@ constructor(private guidesService: GuideService) { }
 
 ngOnInit(): void { }
 
-clickPagination($event) {
+guidePagination(uri) {
+  this.guidesService.getGuidesPaginator(uri).subscribe((guides) => {
+    this.guides = guides;
+    this.paginationCurrentPage = this.guides['links'].first?.split('&')[1].replace(/[^0-9-]/gi, '');
+    this.paginationLast = this.guides['links'].last?.split('&')[1].replace(/[^0-9-]/gi, '');
+    this.paginationPrev = this.guides['links'].prev?.split('&')[1].replace(/[^0-9-]/gi, '');
+    this.paginationNext = this.guides['links'].next?.split('&')[1].replace(/[^0-9-]/gi, '');
+  });
+}
+
+clickPagination(event) {
+
+  console.log(event);
+
+  console.log(this.paginationLast);
+
+  const uri = '/api/guides?page[size]=' + this.paginationNbrPages + '&page[number]=' + event;
+  this.guidePagination(uri);
 
 }
 
