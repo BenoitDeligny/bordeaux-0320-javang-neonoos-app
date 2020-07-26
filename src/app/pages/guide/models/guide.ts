@@ -10,6 +10,7 @@ export class Guide {
       thematic: boolean;
       weight: number;
       created?: string;
+      hashtags: string;
 
 
   constructor( guide?: Guide){
