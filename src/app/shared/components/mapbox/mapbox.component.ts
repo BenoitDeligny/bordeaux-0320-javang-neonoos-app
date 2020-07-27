@@ -77,7 +77,6 @@ export class MapboxComponent implements OnInit, OnChanges {
 
 
   ngOnChanges() {
-
     if (this.markers.length > 0) {
 
       this.markers.map((marker) => marker.remove());

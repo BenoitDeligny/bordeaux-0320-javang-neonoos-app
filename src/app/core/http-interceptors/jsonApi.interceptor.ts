@@ -3,31 +3,21 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders, Http
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class ElideInterceptor implements HttpInterceptor {
+export class JsonApiInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     let headers;
-    const token = localStorage.getItem('token');
-    if (req.url !== 'https://api2.neonoos.com/api/login') {
-      if (token) {
+    if (req.url !== 'https://api2.neonoos.com/api/login' && req.url !== 'https://api2.neonoos.com/api/refresh') {
       headers = new HttpHeaders({
         'Content-Type': 'application/vnd.api+json',
-        Authorization: localStorage.getItem('token')
+      });
+      const modified = req.clone({
+        headers
       });
 
-    } else {
-      headers = new HttpHeaders({
-        'Content-Type': 'application/vnd.api+json'
-      });
+      return next.handle(modified);
     }
-    const modified = req.clone({
-      headers
-    });
-
-    return next.handle(modified);
-  }
     return next.handle(req);
-}
-
+  }
 }

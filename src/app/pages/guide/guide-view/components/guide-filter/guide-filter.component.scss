@@ -49,6 +49,11 @@
       display: flex;
     }
 
+    .checkbox {
+      max-height: 300px;
+      overflow: auto;
+    }
+
     .title {
       font-size: 20px;
       color: #9b9b9b;

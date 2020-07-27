@@ -40,6 +40,12 @@ export class GuideTravelComponent implements OnInit {
   }
 
   onSubmit() {
+
+
+    console.log(this.tripName);
+    console.log(this.countryId);
+
+
     this.countriesFilter.emit({
       tripname: this.tripName,
       countryId: this.countryId

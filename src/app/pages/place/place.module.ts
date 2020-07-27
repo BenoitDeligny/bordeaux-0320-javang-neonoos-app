@@ -34,7 +34,6 @@ import { PlaceDescriptionComponent } from './place-edit-view/components/place-de
 import { PlacePictureComponent } from './place-edit-view/components/place-picture/place-picture.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { QuillModule } from 'ngx-quill';
-import { AddPictureDialogComponent } from './place-edit-view/components/add-picture-dialog/add-picture-dialog.component';
 
 
 @NgModule({
@@ -46,7 +45,6 @@ import { AddPictureDialogComponent } from './place-edit-view/components/add-pict
     PlaceEditComponent,
     PlaceDescriptionComponent,
     PlacePictureComponent,
-    AddPictureDialogComponent
   ],
   imports: [
     CommonModule,

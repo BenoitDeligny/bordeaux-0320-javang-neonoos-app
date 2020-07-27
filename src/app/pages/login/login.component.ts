@@ -4,7 +4,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { AuthService } from './services/auth.service';
 import { User } from './models/user';
 import { RootObject } from 'src/app/shared/models/root-object.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
 
   user: RootObject<User>;
 
-
   /* Formulaire */
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -37,23 +36,23 @@ export class LoginComponent implements OnInit {
 
 
   constructor(
-    private authService: AuthService, private router: Router) { }
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute,
+    ) {
+      if (this.authService.userValue) {
+        this.router.navigate(['/guide']);
+    }
+     }
 
   ngOnInit(): void {
-    this.isAlreadyLog();
+
   }
 
-  isAlreadyLog() {
-    const currentToken = localStorage.getItem('token');
-    if (currentToken) {
-      this.router.navigate(['/guide']);
-    }
-  }
+
 
   /* submit du formulaire */
   OnSubmit(email: string, password: string) {
-    console.log(email);
-    console.log(password);
     const formData = new FormData();
     formData.append('username', email);
     formData.append('password', password);

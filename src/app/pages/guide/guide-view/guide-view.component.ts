@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Hashtag } from 'src/app/shared/models/hashtag';
 import { GuideService } from '../services/guide/guide.service';
 import { Guide } from '../models/guide';
 import { RootObjectList } from 'src/app/shared/models/root-object-list.model';
@@ -12,21 +11,30 @@ import { RootObjectList } from 'src/app/shared/models/root-object-list.model';
 
 export class GuideViewComponent implements OnInit {
 
-  hashtags: Hashtag[] = [];
-  allGuides?: RootObjectList<Guide>;
+  hashtags = [];
+  // allGuides?: RootObjectList<Guide>;
+  guides: RootObjectList<Guide> = new RootObjectList<Guide>(Guide, 'guide');
+  showAllGuides: boolean;
 
-  constructor(private guideService: GuideService) { }
+  constructor(private guidesService: GuideService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { this.getGuides(); }
+
+  getGuides() {
+    this.guidesService.getAllGuides().subscribe((guides) => {
+      this.guides = guides;
+    });
+  }
+
+  onHashtag($event) {
+    this.hashtags = $event;
+  }
 
   getAllGuides(showAllGuides) {
-
     if (showAllGuides === true) {
-      this.guideService.getAllGuides().subscribe((guides) => {
-      this.allGuides = guides;
-      });
+      this.showAllGuides = true;
     } else {
-      this.allGuides = null;
+      this.showAllGuides = false;
     }
   }
 }

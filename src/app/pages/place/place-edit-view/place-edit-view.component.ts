@@ -7,6 +7,10 @@ import { ActivatedRoute } from '@angular/router';
 import { RootObjectList } from 'src/app/shared/models/root-object-list.model';
 import { Country } from 'src/app/shared/models/country';
 import { CountryService } from 'src/app/shared/services/country.service';
+import { Picture } from 'src/app/shared/models/picture.model';
+import { ActivityService } from 'src/app/shared/services/activity.service';
+import { Data } from 'src/app/shared/models/data.model';
+import { Relationships } from 'src/app/shared/models/relationships.model';
 import { PlaceData } from 'src/app/shared/models/place-data.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -24,11 +28,15 @@ export class PlaceEditViewComponent implements OnInit {
   country?: RootObject<Country> = new RootObject<Country>(Country, 'countries');
   placeData?: RootObject<PlaceData> = new RootObject<PlaceData>(PlaceData, 'placedatas');
 
+  placePictures: RootObjectList<Picture> = new RootObjectList<Picture>(Picture, 'pictures');
+
   constructor(
     private placeService: PlaceService,
+    private route: ActivatedRoute,
     private countryService: CountryService,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar
+
   ) { }
 
   ngOnInit(): void {
@@ -62,6 +70,7 @@ export class PlaceEditViewComponent implements OnInit {
     this.getCountry(id);
     this.getPlaceData(id);
   }
+
 
   getCountries() {
     this.countryService.getCountries().subscribe(
@@ -97,6 +106,7 @@ export class PlaceEditViewComponent implements OnInit {
     });
   }
 
+
   postPlace({place, countryId}) {
     place.data.relationships = {};
     place.data.relationships.country = {};
@@ -108,6 +118,7 @@ export class PlaceEditViewComponent implements OnInit {
       duration: 2000
     });
   }
+
 
 }
 

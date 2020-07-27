@@ -27,10 +27,11 @@
       </div>
         <div *ngIf="!hashtags" class="warning">{{ message }}</div>
         <div *ngIf="hashtags" class="checkbox">
-          <div *ngFor="let tag of hashtags.data">
+          <div *ngFor="let tag of hashtags">
             <div>
-              <input id="{{tag.attributes.name }}" type="checkbox" (change)="checkbox($event, tag)">
-              <label for="{{tag.attributes.name}}">{{tag.attributes.name | uppercase}}</label>
+              <input id="{{tag}}" type="checkbox" (change)="checkbox($event, tag)">
+            <!--   <label for="{{tag}}">{{tag | uppercase}}</label> -->
+              <label for="{{tag}}">{{tag}}</label>
             </div>
           </div>
         </div>
