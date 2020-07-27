@@ -7,6 +7,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input, EventEmitter, Output }
 import { RootObject } from 'src/app/shared/models/root-object.model';
 import { Guide } from '../../../models/guide';
 import { Place } from 'src/app/shared/models/place.model';
+import { Country } from 'src/app/shared/models/country';
 
 
 
@@ -16,10 +17,15 @@ import { Place } from 'src/app/shared/models/place.model';
   styleUrls: ['./guide-poi.component.scss']
 })
 export class GuidePoiComponent implements OnInit {
+  @Input() countries: RootObjectList<Country>;
   @Input() guide: RootObject<Guide>;
   @Input() places: RootObjectList<Place>;
-  @Output() deletePlacesGuide = new EventEmitter();
   @Input() PicturesUrl$: Observable<string>[] = [] ;
+  @Input() placeResults: RootObjectList<Place>;
+  @Input() picturePlaceResults$: Observable<string>[] = [] ;
+  @Output() deletePlacesGuide = new EventEmitter();
+  @Output() RefreshPlace = new EventEmitter();
+  @Output() addPlace = new EventEmitter();
 
   constructor(private guideService: GuideService) {
    }
@@ -30,5 +36,10 @@ export class GuidePoiComponent implements OnInit {
    console.log(place);
    this.deletePlacesGuide.emit(place);
  }
-
+refreshPlaces(event){
+  this.RefreshPlace.emit(event);
+}
+sendPlaceToAdd(event){
+  this.addPlace.emit(event);
+}
 }

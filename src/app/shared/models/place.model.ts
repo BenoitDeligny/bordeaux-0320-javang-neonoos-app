@@ -26,6 +26,7 @@ export class Place {
   type: string;
   updated: string;
   weight: number;
+  ischecked = false;
 
   constructor(place?: Place) {
     Object.assign(this, place);

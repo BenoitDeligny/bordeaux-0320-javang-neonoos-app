@@ -21,7 +21,12 @@
 
   <mat-card>
     <neo-guide-poi
+<<<<<<< HEAD
     [guide]='guide' [places]='places' *ngIf="places" (deletePlacesGuide)="deletePlacesGuide($event)" [PicturesUrl$]="PicturesUrl$"></neo-guide-poi>
+=======
+    [guide]='guide' [places]='places' *ngIf="places"(deletePlacesGuide)="deletePlacesGuide($event)" [PicturesUrl$]="PicturesUrl$" [countries]="countries"
+    [placeResults]="placeResults" [picturePlaceResults$]="PicturesPlaceResults$" (RefreshPlace)="refreshPlaces($event)" (addPlace)="addPlace($event)"></neo-guide-poi>
+>>>>>>> dev
   </mat-card>
 </div>
 

@@ -6,6 +6,7 @@ export class Picture {
   created: Date;
   header: boolean;
   absolute: boolean;
+  isExt: boolean;
 
   constructor(picture: Picture){
     Object.assign(this, picture);

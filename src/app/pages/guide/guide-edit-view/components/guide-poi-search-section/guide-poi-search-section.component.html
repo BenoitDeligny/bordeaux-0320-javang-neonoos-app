@@ -1,24 +1,73 @@
-<h3 class="filter-title">Ajouter un voyage</h3>
-<div class="filter-bar">
-  <div class="filter-country">
-    <h3 class="country">Pays</h3>
-    <mat-form-field class="country-input">
-      <mat-select>
-        <mat-option >
-        Maroc
+<div class='first-raw'>
+  <mat-form-field id='country-form-field' class='form-field'>
+    <mat-label>Pays:</mat-label>
+
+      <mat-select [(value)]="countryId">
+        <mat-option>Aucun</mat-option>
+        <mat-option *ngFor="let country of countries.data" value="{{country.id}}">
+          {{country.attributes.name}}
         </mat-option>
       </mat-select>
-    </mat-form-field>
-    <mat-form-field class="place-input">
-      <mat-label>Chercher un lieu</mat-label>
-      <span matPrefix><mat-icon>search</mat-icon></span>
-      <input matInput>
-    </mat-form-field>
-    <mat-form-field class="city-input">
-      <mat-label>Saisisser une ville</mat-label>
-      <span matPrefix><mat-icon> add_location</mat-icon></span>
-      <input matInput>
-    </mat-form-field>
+  </mat-form-field>
+
+  <mat-form-field id='place-form-field' class='form-field'>
+    <mat-icon matPrefix>search</mat-icon>
+    <input type="text" matInput placeholder="Nom de la place" [(ngModel)]="placeName">
+  </mat-form-field>
+
+  <mat-form-field id='town-form-field' class='form-field'>
+    <mat-icon matPrefix>place</mat-icon>
+    <input type="text" matInput placeholder="Saisissez une ville" [(ngModel)]="city">
+  </mat-form-field>
+</div>
+<div class="stars-rayon">
+  <div class="stars">
+    <h3> Stars:</h3>
+    <neo-starsbox typeCheckbox="checkbox" (starsboxEventEmitter)="onStarsboxEvent($event)">
+    </neo-starsbox>
+  </div>
+
+  <div class="rayon">
+    <h3> Rayon en Km: </h3>
+    <mat-slider max="1000" min="1" thumbLabel tickInterval="10" [(ngModel)]="rayon">
+    </mat-slider>
+  </div>
+</div>
+
+<div class="categories">
+  <mat-tab-group>
+    <mat-tab label="test">
+
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<button mat-stroked-button (click)="refreshPlace()">Actualiser la liste</button>
+
+<div class="results">
+  <div class="poi-detail">
+    <h2>Resultats</h2>
+
+    <div *ngIf="places?.data.length>0">
+      <div class="flex" *ngFor="let place of places.data; let i = index ">
+        <div class="poi-image">
+          <img [src]="PicturesUrl$[i] | async" alt="">
+        </div>
+        <div class="poi-content">
+          <h4>{{place.attributes.name}}</h4>
+          <h5>{{place.attributes.city}}</h5>
+        </div>
+        <div class="toggle">
+          <mat-slide-toggle [checked]="place.attributes.ischecked" [(ngModel)]="place.attributes.ischecked"
+            (change)="addPlace(place)">
+            <div *ngIf="!place.attributes.ischecked">Ajouter</div>
+            <div *ngIf="place.attributes.ischecked">Supprimer</div>
+          </mat-slide-toggle>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
     </div>
   </div>
 
+  <div id='mapbox2' class='map'></div>
+
+</div>

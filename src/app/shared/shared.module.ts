@@ -1,18 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapboxComponent } from './components/mapbox/mapbox.component';
+import { StarsboxComponent } from './components/starsbox/starsbox.component';
+import { MatIconModule} from '@angular/material/icon';
 
 
 
 @NgModule({
   declarations: [
-    MapboxComponent
+    MapboxComponent,
+    StarsboxComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatIconModule
   ],
   exports: [
-    MapboxComponent
+    MapboxComponent,
+    StarsboxComponent
   ]
 })
 export class SharedModule { }

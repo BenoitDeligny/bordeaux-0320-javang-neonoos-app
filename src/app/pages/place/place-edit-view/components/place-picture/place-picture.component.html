@@ -1,1 +1,63 @@
-<p>place-picture works!</p>
+<div class="overallContainer">
+
+  <div class="header">
+
+    <div class="titleAndAdd">
+      <div class="title">
+        <h2>Pictures</h2>
+      </div>
+      <div class="addButton">
+        <button mat-raised-button color=primary (click)="openDialog()">Add new picture</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="body">
+    <div class="subtitles">
+      <p>Picture</p>
+      <p>Header picture</p>
+    </div>
+    <div class="card" *ngFor="let picture of addedPictures.data; index as i">
+      <img mat-card-image src={{picture.attributes.filename}} alt="bad link">
+      <div class="pictureLinkAndTitle">
+        <div class="pictureLink">
+          <p>URL Picture</p>
+          <h3>{{picture.attributes.filename | slice: 0:50}}...</h3>
+        </div>
+        <div class="pictureTitle">
+          <p>Picture title</p>
+          <h3>{{picture.attributes.name | slice: 0:50}}...</h3>
+        </div>
+      </div>
+      <div class="IsExtAndAuthor">
+        <div class="toggleExt">
+          <p>Lien externe</p>
+          <mat-slide-toggle [checked]="picture.attributes.isExt" (change)="isExt(picture)"></mat-slide-toggle>
+        </div>
+        <div class="author">
+          <p>Auteur</p>
+          <h3>Neonoos</h3>
+        </div>
+      </div>
+      <div class="dates">
+        <div class="creationDate">
+          <p>Date of creation</p>
+          <h3>{{picture.attributes.created | date:'dd-MM-yyyy'}}</h3>
+        </div>
+        <div class="updateDate">
+          <p>Last Update</p>
+          <h3>{{picture.attributes.created | date:'dd-MM-yyyy'}}</h3>
+        </div>
+      </div>
+      <mat-radio-button value="1"></mat-radio-button>
+
+      <button mat-icon-button color="warn" (click)="deletePicture(i)">
+        <mat-icon>remove_circle_outline</mat-icon>
+      </button>
+
+    </div>
+  </div>
+
+
+</div>

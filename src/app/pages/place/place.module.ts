@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {FormsModule} from '@angular/forms';
 
 // Material
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatRadioModule} from '@angular/material/radio';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
@@ -31,6 +33,8 @@ import { PlaceEditComponent } from './place-edit-view/components/place-edit/plac
 import { PlaceDescriptionComponent } from './place-edit-view/components/place-description/place-description.component';
 import { PlacePictureComponent } from './place-edit-view/components/place-picture/place-picture.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { QuillModule } from 'ngx-quill';
+import { AddPictureDialogComponent } from './place-edit-view/components/add-picture-dialog/add-picture-dialog.component';
 
 
 @NgModule({
@@ -38,11 +42,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
     PlaceViewComponent,
     PlaceResultsComponent,
     PlaceFilterComponent,
-    StarsboxComponent,
     PlaceEditViewComponent,
     PlaceEditComponent,
     PlaceDescriptionComponent,
-    PlacePictureComponent
+    PlacePictureComponent,
+    AddPictureDialogComponent
   ],
   imports: [
     CommonModule,
@@ -66,6 +70,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatAutocompleteModule,
     MatCheckboxModule,
     ReactiveFormsModule,
+    QuillModule,
+    MatRadioModule,
+    MatDialogModule,
   ]
 })
 export class PlaceModule { }

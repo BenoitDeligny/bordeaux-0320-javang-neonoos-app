@@ -15,6 +15,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDividerModule} from '@angular/material/divider';
 import {FormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatSliderModule, MatSlider} from '@angular/material/slider';
 
 import { GuideRoutingModule } from './guide-routing.module';
 import { GuideFilterComponent } from './guide-view/components/guide-filter/guide-filter.component';
@@ -57,7 +59,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatExpansionModule,
     MatSelectModule,
     MatDividerModule,
+    MatSliderModule,
     FormsModule,
+    MatTabsModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
     MatDialogModule,

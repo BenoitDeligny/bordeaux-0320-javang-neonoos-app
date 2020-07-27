@@ -1,1 +1,16 @@
-<p>place-description works!</p>
+<mat-accordion>
+  <mat-expansion-panel>
+
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span class="panel-title">Description en français</span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <quill-editor *ngIf="place"
+      [(ngModel)]="place.data.attributes.description"
+      [styles]="{height: '200px'}">
+    </quill-editor>
+
+  </mat-expansion-panel>
+</mat-accordion>

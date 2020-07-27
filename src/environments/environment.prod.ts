@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  APIURI: 'https://api2.neonoos.com/api/',
 };

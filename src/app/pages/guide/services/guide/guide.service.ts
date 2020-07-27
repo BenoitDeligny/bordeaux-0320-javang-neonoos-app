@@ -24,6 +24,10 @@ export class GuideService {
     .map((guide) => this.createInstance(guide))));
   }
 
+  getAllGuides(): Observable<RootObjectList<Guide>> {
+    return this.http.get<RootObjectList<Guide>>(`${environment.APIURI}guides`);
+  }
+
   getById(id: number): Observable<RootObject<Guide>>{
     return this.http.get<RootObject<Guide>>(`${environment.APIURI}guides/` + id).pipe(map((guide) => this.createInstance(guide)));
   }
@@ -35,6 +39,15 @@ export class GuideService {
   getPictureGuide(id: number): Observable<RootObjectList<Picture>> {
     return this.http.get<RootObjectList<Picture>>(`${environment.APIURI}places/${id}/pictures`);
   }
+
+  getGuidesByHashtag(data): Observable<RootObjectList<Guide>> {
+    return this.http.get<RootObjectList<Guide>>(`${environment.APIURI}guides?filter[search]=%23${data}`);
+  }
+
+  getGuidesPaginator(links): Observable<RootObjectList<Guide>> {
+    return this.http.get<RootObjectList<Guide>>(`${environment.URI}${links}`);
+  }
+
   getHashtagsByGuide(id: number): Observable<RootObjectList<Hashtag>> {
     return this.http.get<RootObjectList<Hashtag>>(`${environment.APIURI}guides/${id}/hashtags`);
   }

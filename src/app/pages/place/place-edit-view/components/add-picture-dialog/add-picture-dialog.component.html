@@ -1,0 +1,10 @@
+<div mat-dialog-content>
+  <p>Add picture's URL</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="pictureUrl" placeholder="Paste url of your picture">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="pictureUrl" cdkFocusInitial>Ok</button>
+</div>

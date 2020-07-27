@@ -1,0 +1,21 @@
+
+.mat-expansion-panel {
+  box-shadow: none;
+
+  .mat-expansion-panel-header {
+    padding: 0;
+
+    ::ng-deep .mat-content {
+      flex: initial;
+    }
+
+    .panel-title {
+      color: grey;
+      font-size: 20px;
+    }
+  }
+
+  .mat-expansion-panel-header:hover {
+    background: white;
+  }
+}

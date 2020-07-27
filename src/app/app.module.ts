@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
 
@@ -16,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
-import { ElideInterceptor } from './core/http-interceptors/elide.interceptor';
+import { JsonApiInterceptor } from './core/http-interceptors/jsonApi.interceptor';
 import { ProgbarComponent } from './shared/components/progbar/progbar.component';
 import { LoaderService } from './shared/services/loader.service';
 import { LoaderInterceptor } from './core/http-interceptors/loader-interceptor.interceptor';
@@ -24,6 +24,11 @@ import { DialogSaveComponent } from './shared/components/dialog-save/dialog-save
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from './shared/shared.module';
+import { JwtInterceptor } from './core/http-interceptors/jwt.interceptor';
+import { ErrorInterceptor } from './core/http-interceptors/httpError.interceptor';
+import { AuthService } from './pages/login/services/auth.service';
+import { appInitializer } from './core/app.initializer';
+import { Router } from '@angular/router';
 
 
 @NgModule({
@@ -53,6 +58,7 @@ import { SharedModule } from './shared/shared.module';
   ],
   providers: [
     LoaderService,
+    { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthService, Router] },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
@@ -60,7 +66,17 @@ import { SharedModule } from './shared/shared.module';
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ElideInterceptor,
+      useClass: JsonApiInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true
     }
   ],

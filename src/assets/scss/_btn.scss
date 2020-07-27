@@ -15,6 +15,7 @@
     transition: all 0.3s;
     display: inline-block;
     box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
 
     span {
       position: relative;
@@ -59,6 +60,8 @@
 
 .btn-section {
   background-color:#FF346b;
+  min-width: 120px;
+  text-align: center;
 }
 .btn-section .round {
   background-color:#CD0F3B;
