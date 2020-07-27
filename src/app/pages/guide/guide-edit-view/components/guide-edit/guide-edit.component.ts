@@ -58,7 +58,7 @@ export class GuideEditComponent implements OnInit {
 
 
   getHashtags() {
-    const getHashtagsSubscription = this.hashtagService.getAll().subscribe((hashtags: RootObjectList<Hashtag>) => {
+/*     const getHashtagsSubscription = this.hashtagService.getAll().subscribe((hashtags: RootObjectList<Hashtag>) => {
       if (hashtags) {
         this.allHashtags = hashtags;
       }
@@ -68,18 +68,18 @@ export class GuideEditComponent implements OnInit {
         this.listenChanges();
       }
     });
-    this.subscription.add(getHashtagsSubscription);
+    this.subscription.add(getHashtagsSubscription); */
   }
 
   getGuideHastags() {
-    if (this.guideId) {
+/*     if (this.guideId) {
       const getGuideHastagsSubscription = this.guideService.getHashtagsByGuide(this.guideId).subscribe((data: RootObjectList<Hashtag>) => {
         if (data) {
           this.guideHashtags = data;
         }
       });
       this.subscription.add(getGuideHastagsSubscription);
-    }
+    } */
   }
 
   // Mat-chips method

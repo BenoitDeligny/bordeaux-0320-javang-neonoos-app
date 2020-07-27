@@ -20,14 +20,28 @@ export class TripService {
     return this.httpClient.get<RootObjectList<Trip>>(`${environment.APIURI}countries/${countryId}/trips`);
   }
 
+  getAllTripsByCountryId(countryId: number) {
+    return this.httpClient.get<RootObjectList<Trip>>(`${environment.APIURI}trips?filter[country]=${countryId}`);
+  }
+
   getTripsByGuideId(guideId: number) {
     return this.httpClient.get<RootObjectList<Trip>>(`${environment.APIURI}guides/${guideId}/trips`);
   }
   getTripsByName(name: string){
     return this.httpClient.get<RootObjectList<Trip>>(`${environment.APIURI}trips?filter=title==*${name}*`);
   }
+
+  getAllTripsByName(name: string){
+    return this.httpClient.get<RootObjectList<Trip>>(`${environment.APIURI}trips?[search]=<${name}>`);
+  }
+
   getTripsByGuideIdAndName(countryId: number, name: string){
     return this.httpClient.get<RootObjectList<Trip>>
     (`${environment.APIURI}countries/${countryId}/trips?filter%5Btrips%5D=title==*${name}*`);
+  }
+
+  getAllTripsByGuideIdAndName(countryId: number, name: string){
+    return this.httpClient.get<RootObjectList<Trip>>
+    (`${environment.APIURI}trips?filter[search]=<${name}>&filter[country]=${countryId}`);
   }
 }

@@ -10,15 +10,18 @@ h3 {
 
 }
 
+.trips-show {
+  display: flex;
+}
+
 .trip-header {
   display: flex;
   margin-bottom: 1rem;
+  width: 300px;
 
   .trip-image {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-
     img {
       width: 180px;
       height: 140px;
@@ -99,3 +102,5 @@ h3 {
     margin-top: 1rem;
   }
 }
+
+
