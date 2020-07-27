@@ -8,6 +8,7 @@ import { RootObject } from 'src/app/shared/models/root-object.model';
 import { map } from 'rxjs/operators';
 import { Country } from 'src/app/shared/models/country';
 import { PlaceData } from 'src/app/shared/models/place-data.model';
+import { Picture } from 'src/app/shared/models/picture.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,11 +29,12 @@ export class PlaceService {
   getCountryByPlace(id: number): Observable<RootObject<Country>> {
     return this.httpClient.get<RootObject<Country>>(`${environment.APIURI}places/${id}/country`);
   }
-
   getPlaceDataById(id: number): Observable<RootObject<PlaceData>> {
     return this.httpClient.get<RootObject<PlaceData>>(`${environment.APIURI}places/${id}/data`);
   }
-
+  getByNameAndCity(filter){
+    return this.httpClient.get<RootObjectList<Place>>(`${environment.APIURI}places?filter[search]=${filter}`);
+  }
   post(place: RootObject<Place>): Observable<RootObject<Place>> {
     return this.httpClient.post<RootObject<Place>>(`${environment.APIURI}places`, place);
   }
