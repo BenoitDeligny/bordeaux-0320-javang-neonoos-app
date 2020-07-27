@@ -7,6 +7,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { RootObjectList } from 'src/app/shared/models/root-object-list.model';
 import { Country } from 'src/app/shared/models/country';
 import { CountryService } from 'src/app/shared/services/country.service';
+import { Picture } from 'src/app/shared/models/picture.model';
+import { ActivityService } from 'src/app/shared/services/activity.service';
+import { Data } from 'src/app/shared/models/data.model';
+import { Relationships } from 'src/app/shared/models/relationships.model';
 import { PlaceData } from 'src/app/shared/models/place-data.model';
 
 @Component({
@@ -23,10 +27,12 @@ export class PlaceEditViewComponent implements OnInit {
   country?: RootObject<Country> = new RootObject<Country>(Country, 'countries');
   placeData?: RootObject<PlaceData> = new RootObject<PlaceData>(PlaceData, 'placedatas');
 
+  placePictures: RootObjectList<Picture> = new RootObjectList<Picture>(Picture, 'pictures');
+
   constructor(
     private placeService: PlaceService,
+    private route: ActivatedRoute,
     private countryService: CountryService,
-    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -61,6 +67,7 @@ export class PlaceEditViewComponent implements OnInit {
     this.getPlaceData(id);
   }
 
+
   getCountries() {
     this.countryService.getCountries().subscribe(
       countries => {
@@ -89,8 +96,5 @@ export class PlaceEditViewComponent implements OnInit {
     this.place.data.relationships.country.data.id = countryId;
     this.placeService.patch(place, this.placeId).subscribe();
   }
-
-
-
 
 }
