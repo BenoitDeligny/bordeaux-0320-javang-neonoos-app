@@ -114,7 +114,6 @@ export class GuideEditViewComponent implements OnInit {
   }
   deletePlacesGuide(place) {
    const temp = this.places.data.filter((placeTofind) => place.id !== placeTofind.id);
-   this.places = null;
    this.places = new RootObjectList<Place>(Place, 'places');
    this.places.data = temp;
    if (this.placeResults?.data.length > 0) {
@@ -122,7 +121,7 @@ export class GuideEditViewComponent implements OnInit {
     }
    this.guide.data.relationships.places.data = [];
    this.places.data.map((placetoKeep) => this.guide.data.relationships.places.data.push(new Relationships('places', placetoKeep.id)));
-
+   this.places.data.map((placetochange) => this.PicturesUrl$.push(this.getGuidePicture(placetochange.id)));
 
   }
 
@@ -223,10 +222,10 @@ addPlace(event){
   if (event.attributes.ischecked){
     this.places.data.push(event);
     const temp = this.places.data;
-    this.places = null;
     this.places = new RootObjectList<Place>(Place, 'places');
     this.places.data = temp;
-
+    this.PicturesUrl$ = [];
+    this.places.data.map((place) => this.PicturesUrl$.push(this.getGuidePicture(place.id)));
 
 
     if (!this.guide.data.relationships){
