@@ -36,7 +36,13 @@ export class PlacePictureComponent implements OnInit {
 
     this.picturesService.getPicturesByPlaceId(this.placeId).subscribe(
       (data: RootObject<Picture>[]) => {
-        this.placePictures = data;
+        for (const picture of data) {
+          if (picture.data.attributes.filename.substring(0, 5) === 'https') {
+            picture.data.attributes.isExt = true;
+          }
+          this.placePictures.push(picture);
+        }
+        // this.placePictures = data;
       }
     );
     // PICTURES END
@@ -49,6 +55,7 @@ export class PlacePictureComponent implements OnInit {
 
     currentPicture.data.attributes.filename = this.pictureUrl;
     currentPicture.data.attributes.name = this.pictureTitle;
+    currentPicture.data.attributes.isExt = true;
     currentPicture.data.type = 'pictures';
     currentPicture.data.relationships = {
       place: {
