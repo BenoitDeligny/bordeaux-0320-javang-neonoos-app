@@ -34,7 +34,6 @@ export class PlaceEditViewComponent implements OnInit {
     private placeService: PlaceService,
     private route: ActivatedRoute,
     private countryService: CountryService,
-    private route: ActivatedRoute,
     private snackBar: MatSnackBar
 
   ) { }
