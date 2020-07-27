@@ -4,7 +4,7 @@
     <div *ngIf="places.data.length>0">
     <div class="flex" *ngFor="let place of places.data; let i = index ">
       <div class="poi-image" >
-        <img  [src]="PicturesUrl$[i] | async" alt="PlacePicture" onerror="this.src='assets/img/noimaginfound.png'">
+        <img [routerLink]="['/place/edit/', place.id]" [src]="PicturesUrl$[i] | async" alt="PlacePicture" onerror="this.src='assets/img/noimaginfound.png'">
       </div>
       <div class="poi-content">
         <h4>{{place.attributes.name}}</h4>
