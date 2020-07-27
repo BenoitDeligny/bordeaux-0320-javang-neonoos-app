@@ -3,8 +3,8 @@ import { RootObjectList } from 'src/app/shared/models/root-object-list.model';
 import { Place } from 'src/app/shared/models/place.model';
 import { Observable } from 'rxjs';
 import * as mapboxgl from 'mapbox-gl/dist/mapbox-gl';
-import { debugOutputAstAsTypeScript } from '@angular/compiler';
 import { Country } from 'src/app/shared/models/country';
+import { collectExternalReferences } from '@angular/compiler';
 @Component({
   selector: 'neo-guide-poi-search-section',
   templateUrl: './guide-poi-search-section.component.html',
@@ -19,8 +19,8 @@ export class GuidePoiSearchSectionComponent implements OnInit, OnChanges {
  markers = [];
  map: mapboxgl.Map;
  countryId: number;
- placeName: string;
- city: string;
+ placeName = '';
+ city = '';
  rayon: any;
   constructor() { }
 
@@ -98,7 +98,8 @@ ngOnChanges() {
     return value;
   }
   refreshPlace(){
-    this.refreshPlaces.emit('true');
+    const filter = this.placeName + ' ' + this.city;
+    this.refreshPlaces.emit(filter);
   }
   addPlace(place){
     this.sendPlaceToadd.emit(place);
