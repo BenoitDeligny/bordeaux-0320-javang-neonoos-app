@@ -53,8 +53,6 @@ export class LoginComponent implements OnInit {
 
   /* submit du formulaire */
   OnSubmit(email: string, password: string) {
-    console.log(email);
-    console.log(password);
     const formData = new FormData();
     formData.append('username', email);
     formData.append('password', password);

@@ -113,14 +113,23 @@ export class GuideEditViewComponent implements OnInit {
     });
   }
   deletePlacesGuide(place) {
-    this.places.data = this.places.data.filter((placeTofind) => place.id !== placeTofind.id);
+   const temp = this.places.data.filter((placeTofind) => place.id !== placeTofind.id);
+   this.places = null;
+   this.places = new RootObjectList<Place>(Place, 'places');
+   this.places.data = temp;
+   if (this.placeResults?.data.length > 0) {
     this.placeResults.data.find((placeToFind) => placeToFind.id === place.id).attributes.ischecked = false;
-    this.guide.data.relationships.places.data = [];
-    this.places.data.map((placetoKeep) => this.guide.data.relationships.places.data.push(new Relationships('places', placetoKeep.id)));
+    }
+   this.guide.data.relationships.places.data = [];
+   this.places.data.map((placetoKeep) => this.guide.data.relationships.places.data.push(new Relationships('places', placetoKeep.id)));
+
+
   }
 
   getGuidePicture(id: number): Observable<string> {
-    return this.guideService.getPictureGuide(id).pipe(map((picture) => picture.data[0].attributes.filename));
+    return this.guideService.getPictureGuide(id).pipe(map((picture) => {
+     return  picture.data[0]?.attributes.filename;
+    }));
   }
 
   // Methodes for GuideTravel Component
@@ -199,27 +208,33 @@ export class GuideEditViewComponent implements OnInit {
   }
 // Methode for Poi Search component
 refreshPlaces(event){
-this.placeService.getAll().subscribe((places) => {
+this.placeService.getByNameAndCity(event).subscribe((places) => {
   this.placeResults = places;
   this.placeResults.data.map((place ) => this.places.data.map((placeToCompare) => {
     if (place.id === placeToCompare.id){
       place.attributes.ischecked = true;
     }
   }));
+  this.placeResults.data.map((place) => this.PicturesPlaceResults$.push(this.getGuidePicture(place.id)));
 });
 }
 addPlace(event){
 
   if (event.attributes.ischecked){
-  this.places.data.push(event);
-  console.log(this.places);
+    this.places.data.push(event);
+    const temp = this.places.data;
+    this.places = null;
+    this.places = new RootObjectList<Place>(Place, 'places');
+    this.places.data = temp;
 
-  if (!this.guide.data.relationships){
+
+
+    if (!this.guide.data.relationships){
     this.guide.data.relationships = {};
     this.guide.data.relationships.places = {};
   }
-  this.guide.data.relationships.places.data = [];
-  this.places.data.map((placeToAdd) => this.guide.data.relationships.places.data.push(new Relationships('places', placeToAdd.id)));
+    this.guide.data.relationships.places.data = [];
+    this.places.data.map((placeToAdd) => this.guide.data.relationships.places.data.push(new Relationships('places', placeToAdd.id)));
 }else {
   this.deletePlacesGuide(event);
 }
