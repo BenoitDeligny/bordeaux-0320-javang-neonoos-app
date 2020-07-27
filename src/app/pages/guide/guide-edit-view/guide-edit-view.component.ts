@@ -106,7 +106,7 @@ export class GuideEditViewComponent implements OnInit {
     this.guideService.getPlacesByGuide(this.guideId).subscribe((places: RootObjectList<Place>) => {
       if (places) {
         this.places = places;
-        this.places.data.map((place) => this.PicturesUrl$.push(this.getGuidePicture(place.id)));
+        //this.places.data.map((place) => this.PicturesUrl$.push(this.getGuidePicture(place.id)));
       } else {
         this.places = new RootObjectList<Place>(Place, 'places');
       }
@@ -118,6 +118,7 @@ export class GuideEditViewComponent implements OnInit {
     this.guide.data.relationships.places.data = [];
     this.places.data.map((placetoKeep) => this.guide.data.relationships.places.data.push(new Relationships('places', placetoKeep.id)));
   }
+
   getGuidePicture(id: number): Observable<string> {
     return this.guideService.getPictureGuide(id).pipe(map((picture) => picture.data[0].attributes.filename));
   }
@@ -164,14 +165,14 @@ export class GuideEditViewComponent implements OnInit {
 
   countriesFilter(filter) {
     if (!filter.tripname && filter.countryId) {
-      this.tripService.getTripsByCountryId(filter.countryId).subscribe(
+      this.tripService.getAllTripsByCountryId(filter.countryId).subscribe(
         tripsByCountry => {
           this.trips = tripsByCountry;
           this.CompareTripsChecked();
         });
 
     } else if (!filter.countryId && filter.tripname) {
-      this.tripService.getTripsByName(filter.tripname).subscribe((trips) => {
+      this.tripService.getAllTripsByName(filter.tripname).subscribe((trips) => {
         this.trips = trips;
         this.CompareTripsChecked();
       });
@@ -182,7 +183,7 @@ export class GuideEditViewComponent implements OnInit {
       });
     }
     else {
-      this.tripService.getTripsByGuideIdAndName(this.guideId, filter.tripname).subscribe((trips) => {
+      this.tripService.getAllTripsByGuideIdAndName(this.guideId, filter.tripname).subscribe((trips) => {
         this.trips = trips;
         this.CompareTripsChecked();
       });
