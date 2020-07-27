@@ -1,4 +1,3 @@
-import { MapboxComponent } from './../../shared/components/mapbox/mapbox.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,6 +18,9 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 import { PlaceRoutingModule } from './place-routing.module';
 import { PlaceViewComponent } from './place-view/place-view.component';
@@ -68,6 +70,9 @@ import { QuillModule } from 'ngx-quill';
     QuillModule,
     MatRadioModule,
     MatDialogModule,
+    MatSnackBarModule,
+    MatCheckboxModule,
+
   ]
 })
 export class PlaceModule { }

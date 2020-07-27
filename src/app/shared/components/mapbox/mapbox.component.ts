@@ -38,7 +38,7 @@ export class MapboxComponent implements OnInit, OnChanges {
   }
 
   displayOnePlace() {
-    if (this.place.data) {
+    if (this.place.data.id) {
       this.initMap(this.place.data.attributes.lng, this.place.data.attributes.lat); {
         this.addMarker(
           this.place.data.attributes.lng,

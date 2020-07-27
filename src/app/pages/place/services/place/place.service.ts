@@ -30,7 +30,8 @@ export class PlaceService {
     return this.httpClient.get<RootObject<Country>>(`${environment.APIURI}places/${id}/country`);
   }
   getPlaceDataById(id: number): Observable<RootObject<PlaceData>> {
-    return this.httpClient.get<RootObject<PlaceData>>(`${environment.APIURI}places/${id}/data`);
+    return this.httpClient.get<RootObject<PlaceData>>(`${environment.APIURI}places/${id}/data`)
+      .pipe(map((placeData) => this.createPlaceDataInstance(placeData)));
   }
   getByNameAndCity(filter){
     return this.httpClient.get<RootObjectList<Place>>(`${environment.APIURI}places?filter[search]=${filter}`);
@@ -46,5 +47,10 @@ export class PlaceService {
 
   createInstance(place: RootObject<Place>){
     return new RootObject<Place>(Place, 'places', place);
+  }
+
+  createPlaceDataInstance(placeData: RootObject<PlaceData>) {
+    return new RootObject<PlaceData>(PlaceData, 'placedatas', placeData);
+
   }
 }
