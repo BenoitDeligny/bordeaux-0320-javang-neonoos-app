@@ -83,7 +83,16 @@ export class MapboxComponent implements OnInit, OnChanges {
       this.places.data.map((place) => {
         this.addMarker(place.attributes.lng, place.attributes.lat, place.attributes.name, place.attributes.description);
       });
+    }else if (this.places.data.length > 0) {
+      this.places.data.map((place) => {
+        this.addMarker(place.attributes.lng, place.attributes.lat, place.attributes.name, place.attributes.description);
+        this.map.flyTo({
+          center: [
+            this.places.data[0].attributes.lng,
+            this.places.data[0].attributes.lat
+          ],
+        });
+      });
     }
   }
 }
-

@@ -7,6 +7,7 @@
                     [placeData]="placeData"
                     (patchPlace)="patchPlace($event)"
                     (postPlace)="postPlace($event)">
+                    *ngIf="placeId"
     </neo-place-edit>
   </mat-card>
   <mat-card>
