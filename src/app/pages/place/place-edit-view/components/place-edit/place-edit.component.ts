@@ -6,6 +6,9 @@ import { Country } from 'src/app/shared/models/country';
 import { PlaceData } from 'src/app/shared/models/place-data.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogSaveComponent } from 'src/app/shared/components/dialog-save/dialog-save.component';
+import { GuideService } from 'src/app/pages/guide/services/guide/guide.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'neo-place-edit',
@@ -24,17 +27,20 @@ export class PlaceEditComponent implements OnInit {
   dialogTitle: string;
   show = true;
   arrayCheckStars: [];
-
+pictureurl$: Observable<string> ;
   @Output() patchPlace = new EventEmitter();
   @Output() patchCountryInPlace = new EventEmitter();
   @Output() postPlace = new EventEmitter();
 
   constructor(
     public dialog: MatDialog,
+    private guideService: GuideService
   ) { }
 
   ngOnInit(): void {
-
+    this.pictureurl$ = this.guideService.getPictureGuide(this.placeId).pipe(map((picture) => {
+      return  picture.data[0]?.attributes.filename;
+     }));
   }
 
   compareObjects(country1: any, country2: any) {

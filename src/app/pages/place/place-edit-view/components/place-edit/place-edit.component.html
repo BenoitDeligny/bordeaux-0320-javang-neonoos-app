@@ -47,7 +47,7 @@
       <button mat-stroked-button (click)="openDialog()">Terminé</button>
     </div>
     <h3>main picture</h3>
-    <img src="https://picsum.photos/300/150" alt="">
+    <img [src]="pictureurl$ | async" alt="placeImage" onerror="this.src='assets/img/noimaginfound.png'" class="picture">
   </div>
 
 </div>

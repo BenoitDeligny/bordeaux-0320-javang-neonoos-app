@@ -106,7 +106,7 @@ export class GuideEditViewComponent implements OnInit {
     this.guideService.getPlacesByGuide(this.guideId).subscribe((places: RootObjectList<Place>) => {
       if (places) {
         this.places = places;
-        //this.places.data.map((place) => this.PicturesUrl$.push(this.getGuidePicture(place.id)));
+        // this.places.data.map((place) => this.PicturesUrl$.push(this.getGuidePicture(place.id)));
       } else {
         this.places = new RootObjectList<Place>(Place, 'places');
       }
