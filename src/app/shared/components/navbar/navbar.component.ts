@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/pages/login/services/auth.service';
 
 @Component({
   selector: 'neo-navbar',
@@ -8,13 +9,13 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
   logout() {
-    localStorage.clear();
+   this.authService.logout();
   }
 
 }

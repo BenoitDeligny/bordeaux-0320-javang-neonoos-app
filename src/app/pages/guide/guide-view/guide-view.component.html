@@ -1,5 +1,12 @@
 
 <div class="container">
-  <neo-guide-filter (checkboxEvent)="hashtags = $event" ></neo-guide-filter>
-  <neo-guide-results [hashtags]="hashtags" ></neo-guide-results>
+  <neo-guide-filter
+    [guides]="guides"
+    (checkboxEvent)="onHashtag($event) "
+    (GuidesEventEmitter)="getAllGuides($event)">
+  </neo-guide-filter>
+  <neo-guide-results
+    [hashtags]="hashtags"
+    [showAllGuides]="showAllGuides">
+  </neo-guide-results>
 </div>

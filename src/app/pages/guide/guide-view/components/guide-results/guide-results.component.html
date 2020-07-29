@@ -1,28 +1,52 @@
-<!-- <div class="overallContainer"> -->
-<div *ngFor="let guides2 of guideSections; let i=index;" class="guide-result">
-  <!-- <mat-card class="resultCard"> -->
-  <mat-card class="block" *ngIf="i < _hashtags.length" >
+
+<div *ngFor="let hashtagsSection of hashtagsSections" class="guide-result">
+  <mat-card class="block">
     <div class="resultHeader">
-      <form class="hearder-title" (ngSubmit)="updateHashtagName(_hashtags[i].id, _hashtags[i].attributes.name)" #myForm="ngForm">
-        <h2 class="title-card-section" *ngIf= "_hashtags[i] && show || hashtagId != _hashtags[i].id">{{ _hashtags[i].attributes.name | uppercase }}</h2>
-        <div *ngIf= "_hashtags[i] && !show && hashtagId === _hashtags[i].id">
-          <input name="hashtagName" type="text" [(ngModel)]="_hashtags[i].attributes.name" #hashtagName="ngModel"/>
-        </div>
-        <button *ngIf= "_hashtags[i] && hashtagId != _hashtags[i].id" type="submit" mat-button>Editer</button>
-        <button *ngIf= "!show && _hashtags[i] && hashtagId === _hashtags[i].id" type="submit" mat-button>Valider</button>
-      </form>
+      <h2 class="title-card-section">{{ hashtagsSection.name | uppercase }}</h2>
     </div>
-      <div  class="resultImg" >
-        <div *ngFor="let guide of guides2.data">
-          <div class="overlay-image">
-            <a [routerLink]="['/guide/edit/', guide.id]">
-              <img class="image" mat-card-image src="https://picsum.photos/150">
-              <div class="text">{{ guide.attributes.title}}</div>
-            </a>
-          </div>
+    <div  class="resultImg" >
+      <div *ngFor="let guide of hashtagsSection.guides.data">
+        <div class="overlay-image">
+          <a [routerLink]="['/guide/edit/', guide.id]">
+            <img class="image" mat-card-image src="https://picsum.photos/150">
+            <div class="text">{{guide.attributes.title}}</div>
+          </a>
+        </div>
       </div>
     </div>
   </mat-card>
 </div>
+
+<div class="guide-result" *ngIf="guides">
+  <mat-card class="block" >
+  <div class="resultHeader">
+  <h2 class="title-card-section">TOUS LES GUIDES</h2>
+  </div>
+  <div  class="resultImg" >
+    <div *ngFor="let guide of guides.data">
+      <div class="overlay-image">
+        <a [routerLink]="['/guide/edit/', guide.id]">
+          <img class="image" mat-card-image src="https://picsum.photos/150">
+          <div class="text">{{ guide.attributes.title}}</div>
+        </a>
+        </div>
+      </div>
+  </div>
+
+  <div class="block-pagination">
+    <div class="pagination">
+      <a (click)="clickPagination(paginationFirst)">Première page</a>
+      <a (click)="clickPagination(paginationPrev)">&laquo;</a>
+      <a *ngIf="(paginationCurrentPage != (paginationFirst +1))" (click)="clickPagination(paginationPrev)">{{paginationPrev}}</a>
+      <a class="active">{{paginationCurrentPage}}</a>
+      <a *ngIf="(paginationCurrentPage != (paginationLast -1))" (click)="clickPagination(paginationNext)">{{paginationNext}}</a>
+      <a (click)="clickPagination(paginationNext)">&raquo;</a>
+      <a (click)="clickPagination(paginationLast)">Dernière page</a>
+    </div>
+  </div>
+
+</mat-card>
+</div>
+
 
 

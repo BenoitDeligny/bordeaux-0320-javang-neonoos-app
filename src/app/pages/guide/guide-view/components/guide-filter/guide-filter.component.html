@@ -9,9 +9,9 @@
         </mat-form-field>
       </form>
       <div class="btn">
-        <a (click)="openDialog()" class="btn-section">
-          <span class="txt">NOUVELLE SECTION</span>
-          <span class="round"><mat-icon>add</mat-icon></span>
+        <a (click)="searchAllGuides()" class="btn-section">
+          <span class="txt">LES GUIDES</span>
+          <span class="round"><mat-icon>{{ iconBtnGuides }}</mat-icon></span>
         </a>
         <a [routerLink]="['/guide/new']" class="btn-new-guide">
           <span class="txt">NOUVEAU GUIDE</span>
@@ -27,10 +27,11 @@
       </div>
         <div *ngIf="!hashtags" class="warning">{{ message }}</div>
         <div *ngIf="hashtags" class="checkbox">
-          <div *ngFor="let tag of hashtags.data">
+          <div *ngFor="let tag of hashtags">
             <div>
-              <input id="{{tag.attributes.name }}" type="checkbox" (change)="checkbox($event, tag)">
-              <label for="{{tag.attributes.name}}">{{tag.attributes.name | uppercase}}</label>
+              <input id="{{tag}}" type="checkbox" (change)="checkbox($event, tag)">
+            <!--   <label for="{{tag}}">{{tag | uppercase}}</label> -->
+              <label for="{{tag}}">{{tag}}</label>
             </div>
           </div>
         </div>

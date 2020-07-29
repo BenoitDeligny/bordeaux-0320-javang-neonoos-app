@@ -1,20 +1,23 @@
 <div class='first-raw'>
   <mat-form-field id='country-form-field' class='form-field'>
     <mat-label>Pays:</mat-label>
-    <mat-select [(ngModel)]="country">
-      <mat-option value="Maroc">Maroc</mat-option>
-      <mat-option value="Tunisie">Tunisie</mat-option>
-    </mat-select>
+
+      <mat-select [(value)]="countryId">
+        <mat-option>Aucun</mat-option>
+        <mat-option *ngFor="let country of countries.data" value="{{country.id}}">
+          {{country.attributes.name}}
+        </mat-option>
+      </mat-select>
   </mat-form-field>
 
   <mat-form-field id='place-form-field' class='form-field'>
     <mat-icon matPrefix>search</mat-icon>
-    <input type="text" matInput placeholder="Rechercher une place">
+    <input type="text" matInput placeholder="Nom de la place" [(ngModel)]="placeName">
   </mat-form-field>
 
   <mat-form-field id='town-form-field' class='form-field'>
     <mat-icon matPrefix>place</mat-icon>
-    <input type="text" matInput placeholder="Saisissez une ville">
+    <input type="text" matInput placeholder="Saisissez une ville" [(ngModel)]="city">
   </mat-form-field>
 </div>
 <div class="stars-rayon">
@@ -34,7 +37,7 @@
 <div class="categories">
   <mat-tab-group>
     <mat-tab label="test">
-    
+
     </mat-tab>
   </mat-tab-group>
 </div>
@@ -47,7 +50,7 @@
     <div *ngIf="places?.data.length>0">
       <div class="flex" *ngFor="let place of places.data; let i = index ">
         <div class="poi-image">
-          <img [src]="PicturesUrl$[i] | async" alt="">
+          <img [src]="PicturesUrl$[i] | async" alt="placeImage" onerror="this.src='assets/img/noimaginfound.png'">
         </div>
         <div class="poi-content">
           <h4>{{place.attributes.name}}</h4>

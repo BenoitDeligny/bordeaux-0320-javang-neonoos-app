@@ -1,6 +1,7 @@
 import { T } from '@angular/cdk/keycodes';
 
 export class Data<T> {
+  [x: string]: any;
   type: string;
   id: number;
   attributes: T;

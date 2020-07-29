@@ -4,7 +4,7 @@
     <div *ngIf="places.data.length>0">
     <div class="flex" *ngFor="let place of places.data; let i = index ">
       <div class="poi-image" >
-        <img  [src]="PicturesUrl$[i] | async" alt="">
+        <img [routerLink]="['/place/edit/', place.id]" [src]="PicturesUrl$[i] | async" alt="PlacePicture" onerror="this.src='assets/img/noimaginfound.png'">
       </div>
       <div class="poi-content">
         <h4>{{place.attributes.name}}</h4>
@@ -29,6 +29,7 @@
         <span class="panel-title">Section recherche</span>
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <neo-guide-poi-search-section [places]="placeResults" [PicturesUrl$]="picturePlaceResults$" (refreshPlaces)="refreshPlaces($event)" (sendPlaceToadd)="sendPlaceToAdd($event)"></neo-guide-poi-search-section>
+    <neo-guide-poi-search-section [places]="placeResults" [PicturesUrl$]="picturePlaceResults$" [countries]="countries"
+    (refreshPlaces)="refreshPlaces($event)" (sendPlaceToadd)="sendPlaceToAdd($event)"></neo-guide-poi-search-section>
   </mat-expansion-panel>
 </mat-accordion>

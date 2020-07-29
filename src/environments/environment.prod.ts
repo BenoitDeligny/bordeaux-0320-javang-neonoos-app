@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  APIURI:"https://bordeaux-java-0320-pj3-neonoos-api.javarover.wilders.dev/api/v1/",
+  APIURI: 'https://api2.neonoos.com/api/',
+  URI: 'https://api2.neonoos.com'
 };

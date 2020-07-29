@@ -4,15 +4,16 @@
                     [place]="place"
                     [countries]="countries"
                     [country]="country"
-                    (patchPlace)="patchPlace($event)">
+                    [placeData]="placeData"
+                    (patchPlace)="patchPlace($event)"
+                    (postPlace)="postPlace($event)">
+                    *ngIf="placeId"
     </neo-place-edit>
   </mat-card>
   <mat-card>
     <neo-place-description [place]="place"></neo-place-description>
   </mat-card>
   <mat-card>
-    <neo-place-picture></neo-place-picture>
+    <neo-place-picture [place]="place" [placeId]="placeId"></neo-place-picture>
   </mat-card>
 </div>
-
-

@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { RootObject } from 'src/app/shared/models/root-object.model';
 import { map } from 'rxjs/operators';
 import { Country } from 'src/app/shared/models/country';
+import { PlaceData } from 'src/app/shared/models/place-data.model';
+import { Picture } from 'src/app/shared/models/picture.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +26,16 @@ export class PlaceService {
     return this.httpClient.get<RootObject<Place>>(`${environment.APIURI}places/` + id);
   }
 
-  getCountryByPlace(id: number): Observable<RootObjectList<Country>> {
-    return this.httpClient.get<RootObjectList<Country>>(`${environment.APIURI}places/${id}/countries`);
+  getCountryByPlace(id: number): Observable<RootObject<Country>> {
+    return this.httpClient.get<RootObject<Country>>(`${environment.APIURI}places/${id}/country`);
   }
-
+  getPlaceDataById(id: number): Observable<RootObject<PlaceData>> {
+    return this.httpClient.get<RootObject<PlaceData>>(`${environment.APIURI}places/${id}/data`)
+      .pipe(map((placeData) => this.createPlaceDataInstance(placeData)));
+  }
+  getByNameAndCity(filter){
+    return this.httpClient.get<RootObjectList<Place>>(`${environment.APIURI}places?filter[search]=${filter}`);
+  }
   post(place: RootObject<Place>): Observable<RootObject<Place>> {
     return this.httpClient.post<RootObject<Place>>(`${environment.APIURI}places`, place);
   }
@@ -39,5 +47,10 @@ export class PlaceService {
 
   createInstance(place: RootObject<Place>){
     return new RootObject<Place>(Place, 'places', place);
+  }
+
+  createPlaceDataInstance(placeData: RootObject<PlaceData>) {
+    return new RootObject<PlaceData>(PlaceData, 'placedatas', placeData);
+
   }
 }
