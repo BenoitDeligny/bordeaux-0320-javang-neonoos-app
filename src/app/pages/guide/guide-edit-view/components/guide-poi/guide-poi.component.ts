@@ -20,29 +20,29 @@ export class GuidePoiComponent implements OnInit, OnChanges {
   @Input() countries: RootObjectList<Country>;
   @Input() guide: RootObject<Guide>;
   @Input() places: RootObjectList<Place>;
-  @Input() PicturesUrl$: Observable<string>[] = [] ;
+  @Input() PicturesUrl$: Observable<string>[] = [];
   @Input() placeResults: RootObjectList<Place>;
-  @Input() picturePlaceResults$: Observable<string>[] = [] ;
+  @Input() picturePlaceResults$: Observable<string>[] = [];
   @Output() deletePlacesGuide = new EventEmitter();
   @Output() RefreshPlace = new EventEmitter();
   @Output() addPlace = new EventEmitter();
 
   constructor(private guideService: GuideService) {
-   }
+  }
   ngOnInit() {
   }
 
- DeletePlacesGuide(place){
-   this.deletePlacesGuide.emit(place);
- }
-refreshPlaces(event){
-  this.RefreshPlace.emit(event);
-}
-sendPlaceToAdd(event){
-  this.addPlace.emit(event);
-}
+  DeletePlacesGuide(place) {
+    this.deletePlacesGuide.emit(place);
+  }
+  refreshPlaces(event) {
+    this.RefreshPlace.emit(event);
+  }
+  sendPlaceToAdd(event) {
+    this.addPlace.emit(event);
+  }
 
-ngOnChanges() {
+  ngOnChanges() {
 
-}
+  }
 }

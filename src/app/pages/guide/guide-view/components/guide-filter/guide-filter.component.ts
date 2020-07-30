@@ -18,7 +18,7 @@ export class GuideFilterComponent implements OnInit {
   @Output() GuidesEventEmitter = new EventEmitter<any>();
   @Input() guides: RootObjectList<Guide>;
 
-  constructor( private guidesService: GuideService ) { }
+  constructor(private guidesService: GuideService) { }
 
   searchValue: string;
   _searchValue: string;
@@ -35,7 +35,7 @@ export class GuideFilterComponent implements OnInit {
   getArrayHashtags(guides: RootObjectList<Guide>) {
     for (let i = 0; guides.data.length > i; i++) {
       const hashtags = guides.data[i].attributes.hashtags;
-      if ( hashtags != null ) {
+      if (hashtags != null) {
         const ArrayOfArrayHashtag = [];
         ArrayOfArrayHashtag.push(hashtags.split(' '));
         for (let k = 0; ArrayOfArrayHashtag.length > k; k++) {
@@ -51,8 +51,7 @@ export class GuideFilterComponent implements OnInit {
   }
 
   onSearchChange(searchValue: string): void {
-    // searchValue = searchValue.toLowerCase();
-    if ( searchValue != '') {
+    if (searchValue != '') {
       this.hashtags = null;
       if (this.tmphashtags.length === 0) {
         this.getArrayHashtags(this.guides);
@@ -97,20 +96,18 @@ export class GuideFilterComponent implements OnInit {
         }
       }
     }
-    // inisialise un nouveau tableau depuis tableau exitant :
     this.arrayHashtags = [...this.arrayHashtags];
-    // Send CheckboxEvent
     this.checkboxEvent.emit(this.arrayHashtags);
   }
 
   searchAllGuides() {
-     if (this.showAllGuides === false) {
+    if (this.showAllGuides === false) {
       this.showAllGuides = true;
       this.iconBtnGuides = 'remove';
     } else {
       this.showAllGuides = false;
       this.iconBtnGuides = 'add';
     }
-     this.GuidesEventEmitter.emit(this.showAllGuides);
+    this.GuidesEventEmitter.emit(this.showAllGuides);
   }
 }
