@@ -1,39 +1,26 @@
 <div class="guide-header">
   <div class="guide-left">
     <div class="guide-title">
-      <h2 *ngIf= "show && guide">{{guide.data.attributes.title}}</h2>
-      <mat-form-field *ngIf= "!show">
+      <h2 *ngIf="show && guide">{{guide.data.attributes.title}}</h2>
+      <mat-form-field *ngIf="!show">
         <input matInput type="text" [(ngModel)]="guide.data.attributes.title">
       </mat-form-field>
       <button (click)="show = !show" mat-button>Editer</button>
     </div>
 
-    <!-- Sections -->
     <h3>sections du guide</h3>
     <div class="guide-section">
       <mat-form-field>
         <mat-chip-list #chipList>
-         <!-- <ng-container *ngIf="updated"> -->
-            <mat-chip
-              *ngFor="let hashtag of guideHashtags.data"
-              [selectable]="selectable"
-              [removable]="removable"
-              (removed)="remove(hashtag)">
-              {{hashtag.attributes.name}}
-              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-            </mat-chip>
-         <!-- </ng-container> -->
-          <input
-            #hashtagInput
-            [formControl]="hashtagCtrl"
-            [matAutocomplete]="auto"
-            [matChipInputFor]="chipList">
+          <mat-chip *ngFor="let hashtag of guideHashtags.data" [selectable]="selectable" [removable]="removable"
+            (removed)="remove(hashtag)">
+            {{hashtag.attributes.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input #hashtagInput [formControl]="hashtagCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList">
         </mat-chip-list>
-        <mat-autocomplete
-          #auto="matAutocomplete"
-          (optionSelected)="selected($event)">
-          <mat-option
-            *ngFor="let hashtag of filteredHashtags | async" [value]="hashtag">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let hashtag of filteredHashtags | async" [value]="hashtag">
             {{hashtag.attributes.name}}
           </mat-option>
         </mat-autocomplete>
@@ -61,13 +48,6 @@
 <div class="forms">
   <h3>Description</h3>
   <br>
-  <quill-editor *ngIf="guide"
-                [styles]="{height: '200px'}"
-                [(ngModel)]="guide.data.attributes.description">
+  <quill-editor *ngIf="guide" [styles]="{height: '200px'}" [(ngModel)]="guide.data.attributes.description">
   </quill-editor>
 </div>
-
-
-
-
-

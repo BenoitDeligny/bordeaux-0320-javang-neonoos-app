@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Hashtag } from 'src/app/shared/models/hashtag';
 import { HashtagService } from '../../../services/hashtag/hashtag.service';

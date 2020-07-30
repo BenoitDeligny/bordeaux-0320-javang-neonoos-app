@@ -12,7 +12,6 @@ import { RootObjectList } from 'src/app/shared/models/root-object-list.model';
 export class GuideViewComponent implements OnInit {
 
   hashtags = [];
-  // allGuides?: RootObjectList<Guide>;
   guides: RootObjectList<Guide> = new RootObjectList<Guide>(Guide, 'guide');
   showAllGuides: boolean;
 
