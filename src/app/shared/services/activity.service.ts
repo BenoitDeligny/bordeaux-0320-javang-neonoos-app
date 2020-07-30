@@ -38,10 +38,6 @@ export class ActivityService {
     );
   }
 
-  uploadPictures(picture: any) {
-
-  }
-
   deletePictures(id: number) {
     return this.httpClient.delete(`${environment.APIURI}pictures/${id}`);
   }

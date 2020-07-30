@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GuideService } from '../services/guide/guide.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HashtagService } from '../services/hashtag/hashtag.service';
@@ -101,42 +101,39 @@ export class GuideEditViewComponent implements OnInit {
     });
     this.subscription.add(getGuideHastagsSubscription);
   }
-  // Methodes for GuidePOI Component
   getGuidePlaces() {
     this.guideService.getPlacesByGuide(this.guideId).subscribe((places: RootObjectList<Place>) => {
       if (places) {
         this.places = places;
-        // this.places.data.map((place) => this.PicturesUrl$.push(this.getGuidePicture(place.id)));
       } else {
         this.places = new RootObjectList<Place>(Place, 'places');
       }
     });
   }
   deletePlacesGuide(place) {
-   const temp = this.places.data.filter((placeTofind) => place.id !== placeTofind.id);
-   this.places = new RootObjectList<Place>(Place, 'places');
-   this.places.data = temp;
-   if (this.placeResults?.data.length > 0) {
-    this.placeResults.data.find((placeToFind) => placeToFind.id === place.id).attributes.ischecked = false;
+    const temp = this.places.data.filter((placeTofind) => place.id !== placeTofind.id);
+    this.places = new RootObjectList<Place>(Place, 'places');
+    this.places.data = temp;
+    if (this.placeResults?.data.length > 0) {
+      this.placeResults.data.find((placeToFind) => placeToFind.id === place.id).attributes.ischecked = false;
     }
-   this.guide.data.relationships.places.data = [];
-   this.places.data.map((placetoKeep) => this.guide.data.relationships.places.data.push(new Relationships('places', placetoKeep.id)));
-   this.places.data.map((placetochange) => this.PicturesUrl$.push(this.getGuidePicture(placetochange.id)));
+    this.guide.data.relationships.places.data = [];
+    this.places.data.map((placetoKeep) => this.guide.data.relationships.places.data.push(new Relationships('places', placetoKeep.id)));
+    this.places.data.map((placetochange) => this.PicturesUrl$.push(this.getGuidePicture(placetochange.id)));
 
   }
 
   getGuidePicture(id: number): Observable<string> {
     return this.guideService.getPictureGuide(id).pipe(map((picture) => {
-     return  picture.data[0]?.attributes.filename;
+      return picture.data[0]?.attributes.filename;
     }));
   }
 
-  // Methodes for GuideTravel Component
   addOrRemoveTrips(trip) {
 
     if (!trip.attributes.isChecked) {
       this.guideTrips.data.push(trip);
-      if (!this.guide.data.relationships){
+      if (!this.guide.data.relationships) {
         this.guide.data.relationships = {};
         this.guide.data.relationships.trips = {};
       }
@@ -149,13 +146,13 @@ export class GuideEditViewComponent implements OnInit {
       );
       this.guideTrips.data.splice(index, 1);
       trip.attributes.isChecked = false;
-      if (!this.guide.data.relationships){
+      if (!this.guide.data.relationships) {
         this.guide.data.relationships = {};
         this.guide.data.relationships.trips = {};
       }
       this.guide.data.relationships.trips.data = [];
       this.guideTrips.data.map
-      ((tripToDelete) => this.guide.data.relationships.trips.data.push(new Relationships('trips', tripToDelete.id)));
+        ((tripToDelete) => this.guide.data.relationships.trips.data.push(new Relationships('trips', tripToDelete.id)));
 
     }
   }
@@ -184,7 +181,7 @@ export class GuideEditViewComponent implements OnInit {
         this.trips = trips;
         this.CompareTripsChecked();
       });
-    }else if (!filter.tripname && !filter.countryId) {
+    } else if (!filter.tripname && !filter.countryId) {
       this.snackBar.open(`Sélectionnez au moins un filtre`, '🤚', {
         duration: 2000,
         verticalPosition: 'top'
@@ -205,37 +202,36 @@ export class GuideEditViewComponent implements OnInit {
       }
     }));
   }
-// Methode for Poi Search component
-refreshPlaces(event){
-this.placeService.getByNameAndCity(event).subscribe((places) => {
-  this.placeResults = places;
-  this.placeResults.data.map((place ) => this.places.data.map((placeToCompare) => {
-    if (place.id === placeToCompare.id){
-      place.attributes.ischecked = true;
-    }
-  }));
-  this.placeResults.data.map((place) => this.PicturesPlaceResults$.push(this.getGuidePicture(place.id)));
-});
-}
-addPlace(event){
-
-  if (event.attributes.ischecked){
-    this.places.data.push(event);
-    const temp = this.places.data;
-    this.places = new RootObjectList<Place>(Place, 'places');
-    this.places.data = temp;
-    this.PicturesUrl$ = [];
-    this.places.data.map((place) => this.PicturesUrl$.push(this.getGuidePicture(place.id)));
-
-
-    if (!this.guide.data.relationships){
-    this.guide.data.relationships = {};
-    this.guide.data.relationships.places = {};
+  refreshPlaces(event) {
+    this.placeService.getByNameAndCity(event).subscribe((places) => {
+      this.placeResults = places;
+      this.placeResults.data.map((place) => this.places.data.map((placeToCompare) => {
+        if (place.id === placeToCompare.id) {
+          place.attributes.ischecked = true;
+        }
+      }));
+      this.placeResults.data.map((place) => this.PicturesPlaceResults$.push(this.getGuidePicture(place.id)));
+    });
   }
-    this.guide.data.relationships.places.data = [];
-    this.places.data.map((placeToAdd) => this.guide.data.relationships.places.data.push(new Relationships('places', placeToAdd.id)));
-}else {
-  this.deletePlacesGuide(event);
-}
-}
+  addPlace(event) {
+
+    if (event.attributes.ischecked) {
+      this.places.data.push(event);
+      const temp = this.places.data;
+      this.places = new RootObjectList<Place>(Place, 'places');
+      this.places.data = temp;
+      this.PicturesUrl$ = [];
+      this.places.data.map((place) => this.PicturesUrl$.push(this.getGuidePicture(place.id)));
+
+
+      if (!this.guide.data.relationships) {
+        this.guide.data.relationships = {};
+        this.guide.data.relationships.places = {};
+      }
+      this.guide.data.relationships.places.data = [];
+      this.places.data.map((placeToAdd) => this.guide.data.relationships.places.data.push(new Relationships('places', placeToAdd.id)));
+    } else {
+      this.deletePlacesGuide(event);
+    }
+  }
 }

@@ -9,21 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SectionTagService {
 
-  // tslint:disable-next-line: ban-types
-  tmpDataSectionsTag = {
-    1: 'Water Sking',
-    2: 'Wakeboarding-Canoeing'
-
-  };
-
-
-
-
   constructor(private httpClient: HttpClient) { }
-
-  getSectionTag() {
-    return this.tmpDataSectionsTag;
-  }
 
   getAll(): Observable<Hashtag[]> {
     return this.httpClient.get<Hashtag[]>(`${environment.APIURI}hashtags`);
